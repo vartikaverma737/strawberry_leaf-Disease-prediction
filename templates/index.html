@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strawberry Leaf Disease Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 40px;
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        form {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .result, .error {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .result {
+            color: #333;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .tb-status {
+            font-size: 16px;
+            color: #007bff;
+        }
+
+        #preview {
+            display: none;
+            margin: 10px auto;
+            max-height: 250px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🍓 Strawberry Leaf Disease Classifier API</h1>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" onchange="previewImage(event)" required>
+        <br>
+        <img id="preview" src="#" alt="Image Preview">
+        <br>
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction %}
+        <p class="result"><strong>{{ prediction }}</strong></p>
+        <p class="result">{{ confidence }}</p>
+        <p class="tb-status">{{ tb_status }}</p>
+    {% elif error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+</body>
+</html>
