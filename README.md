@@ -34,7 +34,7 @@ Trained on a custom image dataset of strawberry leaves categorized as:
 
 ---
 
-## 📈 Features
+## Features
 
 - Deep learning-based leaf disease classification
 - REST API for image upload and prediction
